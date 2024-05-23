@@ -3,6 +3,7 @@ extends Node
 
 const _TILE_HEIGHT: int = 720 / 4
 const _TILE_WIDTH: int = 120
+const _TILE_ACTIONS: Array[String] = ["tile_1", "tile_2", "tile_3", "tile_4"]
 
 @export var _tile_scene: PackedScene
 
@@ -15,8 +16,9 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("shift_tiles"):
-		_shift()
+	for action_ix in range(_TILE_ACTIONS.size()):
+		if event.is_action_pressed(_TILE_ACTIONS[action_ix]):
+			_handle_tile_pressed(action_ix)
 
 
 func _generate_initial_tiles() -> void:
@@ -43,6 +45,12 @@ func _generate_new_tile() -> void:
 	_tile_positions.append(position)
 
 
+func _handle_tile_pressed(index: int) -> void:
+	assert(index >= 0 and index <= 3)
+	if _tile_positions[0] == index:
+		_shift()
+
+
 func _shift() -> void:
 	var bottom_tile: Tile = _tiles.pop_front()
 	bottom_tile.queue_free()
@@ -52,7 +60,5 @@ func _shift() -> void:
 	for tile_index in range(_tiles.size()):
 		var tile := _tiles[tile_index]
 		var tween := tile.create_tween()
-		var final_position := Vector2(
-			tile.position.x, 720 - _TILE_HEIGHT * (tile_index + 1)
-		)
+		var final_position := Vector2(tile.position.x, 720 - _TILE_HEIGHT * (tile_index + 1))
 		tween.tween_property(tile, "position", final_position, 0.1)
