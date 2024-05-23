@@ -9,6 +9,9 @@ const _TILE_ACTIONS: Array[String] = ["tile_1", "tile_2", "tile_3", "tile_4"]
 
 @export var _hud: HUD
 @export var _tile_scene: PackedScene
+@export var _tile_sound_player: AudioStreamPlayer2D
+@export var _success_sound: AudioStream
+@export var _fail_sound: AudioStream
 
 var _tiles: Array[Tile] = []
 var _tile_positions: Array[int] = []
@@ -61,9 +64,12 @@ func _handle_tile_pressed(index: int) -> void:
 	assert(index >= 0 and index <= 3)
 	if _tile_positions[0] == index:
 		_shift()
+		_tile_sound_player.stream = _success_sound
 		_score += 1
 	else:
+		_tile_sound_player.stream = _fail_sound
 		_score = 0
+	_tile_sound_player.play()
 
 
 func _shift() -> void:
