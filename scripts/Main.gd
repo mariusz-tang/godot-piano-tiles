@@ -60,5 +60,7 @@ func _shift() -> void:
 	for tile_index in range(_tiles.size()):
 		var tile := _tiles[tile_index]
 		var tween := tile.create_tween()
-		var final_position := Vector2(tile.position.x, 720 - _TILE_HEIGHT * (tile_index + 1))
+		var final_position := Vector2(
+			tile.position.x, 720 - _TILE_HEIGHT * (tile_index + 1)
+		)
 		tween.tween_property(tile, "position", final_position, 0.1)

@@ -3,6 +3,6 @@
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1_5pbcg"]
 [ext_resource type="PackedScene" uid="uid://bqie7hqdh176r" path="res://scenes/tile.tscn" id="2_jldo6"]
 
-[node name="Node" type="Node"]
+[node name="Main" type="Node"]
 script = ExtResource("1_5pbcg")
 _tile_scene = ExtResource("2_jldo6")
