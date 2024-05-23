@@ -1,7 +1,7 @@
 class_name Main
 extends Node
 
-signal score_changed(new_score: int)
+signal score_changed(new_score: int, new_highscore: int)
 
 const _TILE_HEIGHT: int = 720 / 4
 const _TILE_WIDTH: int = 120
