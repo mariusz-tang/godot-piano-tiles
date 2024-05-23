@@ -1,6 +1,8 @@
 class_name Main
 extends Node
 
+signal score_changed(new_score: int)
+
 const _TILE_HEIGHT: int = 720 / 4
 const _TILE_WIDTH: int = 120
 const _TILE_ACTIONS: Array[String] = ["tile_1", "tile_2", "tile_3", "tile_4"]
@@ -9,7 +11,12 @@ const _TILE_ACTIONS: Array[String] = ["tile_1", "tile_2", "tile_3", "tile_4"]
 
 var _tiles: Array[Tile] = []
 var _tile_positions: Array[int] = []
-var _score: int = 0
+var _score: int = 0:
+	get:
+		return _score
+	set(value):
+		score_changed.emit(value)
+		_score = value
 
 
 func _ready() -> void:
