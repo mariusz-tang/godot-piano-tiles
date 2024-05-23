@@ -9,6 +9,7 @@ const _TILE_ACTIONS: Array[String] = ["tile_1", "tile_2", "tile_3", "tile_4"]
 
 var _tiles: Array[Tile] = []
 var _tile_positions: Array[int] = []
+var _score: int = 0
 
 
 func _ready() -> void:
@@ -49,6 +50,9 @@ func _handle_tile_pressed(index: int) -> void:
 	assert(index >= 0 and index <= 3)
 	if _tile_positions[0] == index:
 		_shift()
+		_score += 1
+	else:
+		_score = 0
 
 
 func _shift() -> void:
