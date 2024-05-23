@@ -67,15 +67,16 @@ func _handle_tile_pressed(index: int) -> void:
 
 
 func _shift() -> void:
-	var bottom_tile: Tile = _tiles.pop_front()
-	bottom_tile.queue_free()
-	_tile_positions.remove_at(0)
-
 	_generate_new_tile()
 	for tile_index in range(_tiles.size()):
 		var tile := _tiles[tile_index]
 		var tween := tile.create_tween()
 		var final_position := Vector2(
-			tile.position.x, 720 - _TILE_HEIGHT * (tile_index + 1)
+			tile.position.x, 720 - _TILE_HEIGHT * tile_index
 		)
 		tween.tween_property(tile, "position", final_position, 0.1)
+		if tile_index == 0:
+			tile.fade_and_free(tween)
+
+	_tiles.remove_at(0)
+	_tile_positions.remove_at(0)
