@@ -7,6 +7,7 @@ const _TILE_HEIGHT: int = 720 / 4
 const _TILE_WIDTH: int = 120
 const _TILE_ACTIONS: Array[String] = ["tile_1", "tile_2", "tile_3", "tile_4"]
 
+@export var _hud: HUD
 @export var _tile_scene: PackedScene
 
 var _tiles: Array[Tile] = []
@@ -15,12 +16,15 @@ var _score: int = 0:
 	get:
 		return _score
 	set(value):
-		score_changed.emit(value)
 		_score = value
+		_highscore = max(value, _highscore)
+		score_changed.emit(value, _highscore)
+var _highscore: int = 0
 
 
 func _ready() -> void:
 	_generate_initial_tiles()
+	score_changed.connect(_hud.update_scores)
 
 
 func _input(event: InputEvent) -> void:
