@@ -4,6 +4,7 @@ extends Node
 signal score_changed(new_score: int, new_highscore: int)
 signal game_over
 
+const _SAVE_FILE_PATH := "user://savegame.save"
 const _TILE_HEIGHT: int = 720 / 4
 const _TILE_WIDTH: int = 120
 const _TILE_ACTIONS: Array[String] = ["tile_1", "tile_2", "tile_3", "tile_4"]
@@ -33,6 +34,8 @@ func _ready() -> void:
 	_game.bad_press.connect(_game_over)
 	_game.generate()
 
+	_load_highscore()
+
 
 func _start_game() -> void:
 	_game.play(true)
@@ -44,6 +47,7 @@ func _add_point() -> void:
 
 
 func _game_over() -> void:
+	_save_highscore()
 	_score = 0
 	_game.pause()
 	_play_sound(_fail_sound)
@@ -53,3 +57,22 @@ func _game_over() -> void:
 func _play_sound(sound: AudioStream) -> void:
 	_tile_sound_player.stream = sound
 	_tile_sound_player.play()
+
+
+func _save_highscore() -> void:
+	var save_file := FileAccess.open(_SAVE_FILE_PATH, FileAccess.WRITE)
+	save_file.store_line(str(_highscore))
+
+
+func _load_highscore() -> void:
+	if not FileAccess.file_exists(_SAVE_FILE_PATH):
+		return
+
+	var save_file := FileAccess.open(_SAVE_FILE_PATH, FileAccess.READ)
+	var line: String = save_file.get_line()
+
+	if not line.is_valid_int():
+		return
+
+	_highscore = int(line)
+	score_changed.emit(_score, _highscore)
