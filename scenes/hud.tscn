@@ -8,8 +8,9 @@ score_label = NodePath("ScoreLabel")
 highscore_label = NodePath("HighscoreLabel")
 
 [node name="ScoreLabel" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 10.0
+offset_right = 50.0
+offset_bottom = 45.0
 theme_override_font_sizes/font_size = 32
 text = "0"
 
@@ -17,8 +18,9 @@ text = "0"
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 23.0
+offset_left = -200.0
+offset_right = -10.0
+offset_bottom = 45.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 32
 text = "Highscore: 0"
