@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_4caqb"]
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("score_label", "highscore_label", "start_button")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("_score_label", "_highscore_label", "_start_button")]
 script = ExtResource("1_4caqb")
-score_label = NodePath("ScoreLabel")
-highscore_label = NodePath("HighscoreLabel")
-start_button = NodePath("StartButton")
+_score_label = NodePath("ScoreLabel")
+_highscore_label = NodePath("HighscoreLabel")
+_start_button = NodePath("StartButton")
 
 [node name="ScoreLabel" type="Label" parent="."]
 offset_left = 10.0

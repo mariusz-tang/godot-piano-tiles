@@ -26,6 +26,8 @@ var _highscore: int = 0
 
 func _ready() -> void:
 	score_changed.connect(_hud.update_scores)
+	game_over.connect(_hud.show_start)
+	_hud.start_pressed.connect(_start_game)
 
 	_game.good_press.connect(_add_point)
 	_game.bad_press.connect(_game_over)
