@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_4caqb"]
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("score_label", "highscore_label")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("score_label", "highscore_label", "start_button")]
 script = ExtResource("1_4caqb")
 score_label = NodePath("ScoreLabel")
 highscore_label = NodePath("HighscoreLabel")
+start_button = NodePath("StartButton")
 
 [node name="ScoreLabel" type="Label" parent="."]
 offset_left = 10.0
@@ -24,3 +25,20 @@ offset_bottom = 45.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 32
 text = "Highscore: 0"
+
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -320.0
+offset_right = 100.0
+offset_bottom = -220.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "Start"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
