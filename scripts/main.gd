@@ -82,7 +82,7 @@ func _shift() -> void:
 		)
 		tween.tween_property(tile, "position", final_position, 0.1)
 		if tile_index == 0:
-			tile.fade_and_free(tween)
+			tile.shrink_and_free(tween)
 
 	_tiles.remove_at(0)
 	_tile_positions.remove_at(0)

@@ -12,6 +12,6 @@ func set_size(x: int, y: int) -> void:
 	_sprite.position = new_size / 2
 
 
-func fade_and_free(tween: Tween) -> void:
+func shrink_and_free(tween: Tween) -> void:
 	tween.parallel().tween_property(_sprite, "scale", Vector2.ZERO, 0.1)
 	tween.tween_callback(queue_free)
