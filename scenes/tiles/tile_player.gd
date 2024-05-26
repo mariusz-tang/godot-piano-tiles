@@ -2,16 +2,18 @@ class_name TilePlayer
 extends Node
 ## A gameplay manager class. Handles tile generation and parses gameplay inputs.
 
-## Emitted when the correct tile is pressed.
-signal good_press
-## Emitted when an incorrect tile is pressed.
-signal bad_press
+signal game_over(final_score: int)
+signal score_changed(new_score: int)
 
 const _TILE_HEIGHT: int = 720 / 4
 const _TILE_WIDTH: int = 120
 const _TILE_ACTIONS: Array[String] = ["tile_1", "tile_2", "tile_3", "tile_4"]
 
 @export var _tile_scene: PackedScene
+@export_group("Audio")
+@export var _audio_player: SoundEffectPlayer2D
+@export var _success_sound: AudioStream
+@export var _fail_sound: AudioStream
 
 var tile_colour: Color:
 	get:
@@ -23,11 +25,17 @@ var tile_colour: Color:
 
 var _tiles: Array[Tile] = []
 var _tile_positions: Array[int] = []
+var _score: int = 0:
+	get:
+		return _score
+	set(value):
+		_score = value
+		score_changed.emit(value)
 
 
 func _ready() -> void:
 	# Begin in a paused state until play is called.
-	set_process_unhandled_input(false)
+	pause()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -43,6 +51,7 @@ func generate() -> void:
 		var tile: Tile = _tiles.pop_back()
 		tile.queue_free()
 	_tile_positions.clear()
+
 	_generate_initial_tiles()
 
 
@@ -50,6 +59,7 @@ func generate() -> void:
 ## [method TilePlayer.generate] is called first.
 func play(regenerate: bool = false) -> void:
 	if regenerate:
+		_score = 0
 		generate()
 	set_process_unhandled_input(true)
 
@@ -88,9 +98,11 @@ func _handle_tile_pressed(index: int) -> void:
 	assert(index >= 0 and index <= 3)
 	if _tile_positions[0] == index:
 		_shift()
-		good_press.emit()
+		_score += 1
+		_audio_player.play_stream(_success_sound)
 	else:
-		bad_press.emit()
+		_audio_player.play_stream(_fail_sound)
+		game_over.emit(_score)
 
 
 func _shift() -> void:

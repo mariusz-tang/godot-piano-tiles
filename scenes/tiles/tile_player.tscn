@@ -1,8 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://bie5kmreet40m"]
+[gd_scene load_steps=6 format=3 uid="uid://bie5kmreet40m"]
 
 [ext_resource type="Script" path="res://scenes/tiles/tile_player.gd" id="1_7r7by"]
 [ext_resource type="PackedScene" uid="uid://bqie7hqdh176r" path="res://scenes/tiles/tile.tscn" id="2_v3r57"]
+[ext_resource type="AudioStream" uid="uid://dj0nyxhqyd3do" path="res://assets/Wow.ogg" id="3_d0fkt"]
+[ext_resource type="Script" path="res://scenes/tiles/sound_effect_player.gd" id="4_g7pno"]
+[ext_resource type="AudioStream" uid="uid://0vqilticpcqx" path="res://assets/NO.ogg" id="4_pxm40"]
 
-[node name="TilePlayer" type="Node"]
+[node name="TilePlayer" type="Node" node_paths=PackedStringArray("_audio_player")]
 script = ExtResource("1_7r7by")
 _tile_scene = ExtResource("2_v3r57")
+_audio_player = NodePath("SoundEffectPlayer")
+_success_sound = ExtResource("3_d0fkt")
+_fail_sound = ExtResource("4_pxm40")
+
+[node name="SoundEffectPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_d0fkt")
+volume_db = 1.37
+script = ExtResource("4_g7pno")

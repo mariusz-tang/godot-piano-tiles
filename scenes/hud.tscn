@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/hud.gd" id="1_4caqb"]
 
-[node name="HUD" type="MarginContainer" node_paths=PackedStringArray("_score_label", "_highscore_label", "_menu", "_start_button", "_final_score_label")]
+[node name="HUD" type="MarginContainer" node_paths=PackedStringArray("_score_label", "_highscore_label", "_menu", "_start_button", "_final_score_label", "_colour_picker_button")]
 offset_right = 480.0
 offset_bottom = 720.0
 theme_override_constants/margin_left = 10
@@ -15,6 +15,7 @@ _highscore_label = NodePath("HighscoreLabel")
 _menu = NodePath("Menu")
 _start_button = NodePath("Menu/StartButton")
 _final_score_label = NodePath("Menu/FinalScoreLabel")
+_colour_picker_button = NodePath("Menu/TileColourPanel/TileColourPicker/TileColourButton")
 
 [node name="ScoreLabel" type="Label" parent="."]
 layout_mode = 2

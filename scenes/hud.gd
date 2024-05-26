@@ -14,11 +14,20 @@ signal tile_colour_changed(colour: Color)
 @export var _menu: Container
 @export var _start_button: Button
 @export var _final_score_label: Label
+@export var _colour_picker_button: ColorPickerButton
 
 
-func update_scores(score: int, highscore: int) -> void:
-	_score_label.text = str(score)
-	_highscore_label.text = "Highscore: " + str(highscore)
+func update_score(new_score: int) -> void:
+	_score_label.text = str(new_score)
+
+
+func update_highscore(new_highscore: int) -> void:
+	_highscore_label.text = "Highscore: " + str(new_highscore)
+
+
+## Update the colour displayed by the tile colour option in the menu.
+func set_tile_colour(colour: Color) -> void:
+	_colour_picker_button.color = colour
 
 
 ## Show the menu and focus the start button.
