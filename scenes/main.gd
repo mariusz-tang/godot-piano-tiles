@@ -5,6 +5,7 @@ signal score_changed(new_score: int, new_highscore: int)
 signal game_over
 
 const _SAVE_FILE_PATH := "user://savegame.save"
+const _CONFIG_FILE_PATH := "user://config.cfg"
 const _TILE_HEIGHT: int = 720 / 4
 const _TILE_WIDTH: int = 120
 const _TILE_ACTIONS: Array[String] = ["tile_1", "tile_2", "tile_3", "tile_4"]
@@ -17,6 +18,7 @@ const _TILE_ACTIONS: Array[String] = ["tile_1", "tile_2", "tile_3", "tile_4"]
 @export var _success_sound: AudioStream
 @export var _fail_sound: AudioStream
 
+var _config_file: ConfigFile
 var _score: int = 0:
 	get:
 		return _score
@@ -32,15 +34,14 @@ func _ready() -> void:
 	game_over.connect(func() -> void: _hud.show_fail_menu(_score))
 	_hud.start_pressed.connect(_start_game)
 	_hud.reset_highscore_pressed.connect(_reset_highscore)
-	_hud.tile_colour_changed.connect(
-		func(c: Color) -> void: _game.tile_colour = c
-	)
+	_hud.tile_colour_changed.connect(_update_tile_colour)
 	_hud.quit_pressed.connect(get_tree().quit)
 
 	_game.good_press.connect(_add_point)
 	_game.bad_press.connect(_game_over)
 	_game.generate()
 
+	_load_config()
 	_load_highscore()
 	_hud.show_menu()
 
@@ -68,6 +69,12 @@ func _reset_highscore() -> void:
 	score_changed.emit(_score, _highscore)
 
 
+func _update_tile_colour(colour: Color) -> void:
+	_game.tile_colour = colour
+	_config_file.set_value("Visuals", "tile_colour", colour)
+	_config_file.save(_CONFIG_FILE_PATH)
+
+
 func _play_sound(sound: AudioStream) -> void:
 	_tile_sound_player.stream = sound
 	_tile_sound_player.play()
@@ -90,3 +97,16 @@ func _load_highscore() -> void:
 
 	_highscore = int(line)
 	score_changed.emit(_score, _highscore)
+
+
+func _load_config() -> void:
+	_config_file = ConfigFile.new()
+
+	var err := _config_file.load(_CONFIG_FILE_PATH)
+	if err != OK:
+		return
+
+	var colour: Color = _config_file.get_value(
+		"Visuals", "tile_colour", Color.BLACK
+	)
+	_update_tile_colour(colour)
