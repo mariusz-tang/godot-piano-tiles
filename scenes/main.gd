@@ -11,6 +11,8 @@ const _TILE_ACTIONS: Array[String] = ["tile_1", "tile_2", "tile_3", "tile_4"]
 
 @export var _hud: HUD
 @export var _game: TilePlayer
+
+@export_group("Audio")
 @export var _tile_sound_player: AudioStreamPlayer2D
 @export var _success_sound: AudioStream
 @export var _fail_sound: AudioStream

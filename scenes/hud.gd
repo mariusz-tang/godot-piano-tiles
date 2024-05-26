@@ -6,11 +6,14 @@ signal reset_highscore_pressed
 signal quit_pressed
 signal tile_colour_changed(colour: Color)
 
+@export_group("Top HUD")
+@export var _score_label: Label
+@export var _highscore_label: Label
+
+@export_group("Menu")
 @export var _menu: Container
 @export var _start_button: Button
 @export var _final_score_label: Label
-@export var _score_label: Label
-@export var _highscore_label: Label
 
 
 func update_scores(score: int, highscore: int) -> void:

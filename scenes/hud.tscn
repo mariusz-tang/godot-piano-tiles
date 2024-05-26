@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/hud.gd" id="1_4caqb"]
 
-[node name="HUD" type="MarginContainer" node_paths=PackedStringArray("_menu", "_start_button", "_final_score_label", "_score_label", "_highscore_label")]
+[node name="HUD" type="MarginContainer" node_paths=PackedStringArray("_score_label", "_highscore_label", "_menu", "_start_button", "_final_score_label")]
 offset_right = 480.0
 offset_bottom = 720.0
 theme_override_constants/margin_left = 10
@@ -10,11 +10,11 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 script = ExtResource("1_4caqb")
+_score_label = NodePath("ScoreLabel")
+_highscore_label = NodePath("HighscoreLabel")
 _menu = NodePath("Menu")
 _start_button = NodePath("Menu/StartButton")
 _final_score_label = NodePath("Menu/FinalScoreLabel")
-_score_label = NodePath("ScoreLabel")
-_highscore_label = NodePath("HighscoreLabel")
 
 [node name="ScoreLabel" type="Label" parent="."]
 layout_mode = 2
