@@ -35,6 +35,7 @@ func _ready() -> void:
 	_game.generate()
 
 	_load_highscore()
+	_hud.show_start()
 
 
 func _start_game() -> void:

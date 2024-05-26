@@ -20,3 +20,4 @@ func _on_start_button_pressed() -> void:
 
 func show_start() -> void:
 	_start_button.show()
+	_start_button.grab_focus()
