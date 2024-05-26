@@ -13,6 +13,14 @@ const _TILE_ACTIONS: Array[String] = ["tile_1", "tile_2", "tile_3", "tile_4"]
 
 @export var _tile_scene: PackedScene
 
+var tile_colour: Color:
+	get:
+		return tile_colour
+	set(value):
+		tile_colour = value
+		for tile in _tiles:
+			tile.set_colour(value)
+
 var _tiles: Array[Tile] = []
 var _tile_positions: Array[int] = []
 
@@ -60,6 +68,7 @@ func _generate_new_tile() -> void:
 	var tile: Tile = _tile_scene.instantiate()
 	add_child(tile)
 	tile.set_size(_TILE_WIDTH, _TILE_HEIGHT)
+	tile.set_colour(tile_colour)
 
 	var tile_x_pos := randi() % 4
 	var x := tile_x_pos * _TILE_WIDTH

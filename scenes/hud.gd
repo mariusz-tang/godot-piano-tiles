@@ -4,6 +4,7 @@ extends Control
 signal start_pressed
 signal reset_highscore_pressed
 signal quit_pressed
+signal tile_colour_changed(colour: Color)
 
 @export var _menu: Container
 @export var _start_button: Button
@@ -56,3 +57,7 @@ func _on_reset_highscore_button_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	quit_pressed.emit()
+
+
+func _on_tile_color_changed(colour: Color) -> void:
+	tile_colour_changed.emit(colour)

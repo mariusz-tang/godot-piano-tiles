@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scenes/tiles/tile.gd" id="1_ariqf"]
 
 [sub_resource type="Gradient" id="Gradient_gx45w"]
-offsets = PackedFloat32Array(0.675325, 1)
-colors = PackedColorArray(0.23, 0.0851, 0.0851, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ltrco"]
 gradient = SubResource("Gradient_gx45w")

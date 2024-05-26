@@ -30,6 +30,9 @@ func _ready() -> void:
 	game_over.connect(func() -> void: _hud.show_fail_menu(_score))
 	_hud.start_pressed.connect(_start_game)
 	_hud.reset_highscore_pressed.connect(_reset_highscore)
+	_hud.tile_colour_changed.connect(
+		func(c: Color) -> void: _game.tile_colour = c
+	)
 	_hud.quit_pressed.connect(get_tree().quit)
 
 	_game.good_press.connect(_add_point)
