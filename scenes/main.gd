@@ -27,18 +27,21 @@ var _highscore: int = 0
 
 func _ready() -> void:
 	score_changed.connect(_hud.update_scores)
-	game_over.connect(_hud.show_start)
+	game_over.connect(func() -> void: _hud.show_fail_menu(_score))
 	_hud.start_pressed.connect(_start_game)
+	_hud.reset_highscore_pressed.connect(_reset_highscore)
+	_hud.quit_pressed.connect(get_tree().quit)
 
 	_game.good_press.connect(_add_point)
 	_game.bad_press.connect(_game_over)
 	_game.generate()
 
 	_load_highscore()
-	_hud.show_start()
+	_hud.show_menu()
 
 
 func _start_game() -> void:
+	_score = 0
 	_game.play(true)
 
 
@@ -49,10 +52,15 @@ func _add_point() -> void:
 
 func _game_over() -> void:
 	_save_highscore()
-	_score = 0
 	_game.pause()
 	_play_sound(_fail_sound)
 	game_over.emit()
+
+
+func _reset_highscore() -> void:
+	_highscore = 0
+	_save_highscore()
+	score_changed.emit(_score, _highscore)
 
 
 func _play_sound(sound: AudioStream) -> void:

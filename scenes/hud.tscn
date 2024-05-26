@@ -2,43 +2,63 @@
 
 [ext_resource type="Script" path="res://scenes/hud.gd" id="1_4caqb"]
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("_score_label", "_highscore_label", "_start_button")]
+[node name="HUD" type="MarginContainer" node_paths=PackedStringArray("_menu", "_start_button", "_final_score_label", "_score_label", "_highscore_label")]
+offset_right = 480.0
+offset_bottom = 720.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 script = ExtResource("1_4caqb")
+_menu = NodePath("Menu")
+_start_button = NodePath("Menu/StartButton")
+_final_score_label = NodePath("Menu/FinalScoreLabel")
 _score_label = NodePath("ScoreLabel")
 _highscore_label = NodePath("HighscoreLabel")
-_start_button = NodePath("StartButton")
 
 [node name="ScoreLabel" type="Label" parent="."]
-offset_left = 10.0
-offset_right = 50.0
-offset_bottom = 45.0
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_font_sizes/font_size = 32
 text = "0"
 
 [node name="HighscoreLabel" type="Label" parent="."]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -200.0
-offset_right = -10.0
-offset_bottom = 45.0
-grow_horizontal = 0
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 theme_override_font_sizes/font_size = 32
 text = "Highscore: 0"
 
-[node name="StartButton" type="Button" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -320.0
-offset_right = 100.0
-offset_bottom = -220.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="Menu" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="FinalScoreLabel" type="Label" parent="Menu"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 100
+
+[node name="StartButton" type="Button" parent="Menu"]
+layout_mode = 2
+size_flags_vertical = 4
 theme_override_font_sizes/font_size = 32
 text = "Start"
 
-[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[node name="ResetHighscoreButton" type="Button" parent="Menu"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "Reset Highscore"
+
+[node name="QuitButton" type="Button" parent="Menu"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+
+[connection signal="pressed" from="Menu/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Menu/ResetHighscoreButton" to="." method="_on_reset_highscore_button_pressed"]
+[connection signal="pressed" from="Menu/QuitButton" to="." method="_on_quit_button_pressed"]

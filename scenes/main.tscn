@@ -14,10 +14,10 @@ _tile_sound_player = NodePath("TilePressAudioPlayer")
 _success_sound = ExtResource("4_6sjgw")
 _fail_sound = ExtResource("4_xk2mg")
 
-[node name="HUD" parent="." instance=ExtResource("3_6uwua")]
-
 [node name="TilePressAudioPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_6sjgw")
 volume_db = 1.37
 
 [node name="Game" parent="." instance=ExtResource("5_5c33q")]
+
+[node name="HUD" parent="." instance=ExtResource("3_6uwua")]
