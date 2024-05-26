@@ -1,4 +1,4 @@
 @echo off
-gdlint ./scripts/
-if %ERRORLEVEL%==0 gdformat ./scripts/ --line-length=80
+gdlint ./scenes/
+if %ERRORLEVEL%==0 gdformat ./scenes/ --line-length=80
 pause
