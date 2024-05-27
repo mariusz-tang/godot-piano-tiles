@@ -20,27 +20,15 @@ var _highscore: int = 0:
 
 
 func _ready() -> void:
-	_hud.start_pressed.connect(_start_game)
-	_hud.reset_highscore_pressed.connect(_reset_highscore)
-	_hud.tile_colour_changed.connect(_update_tile_colour)
-	_hud.quit_pressed.connect(get_tree().quit)
-
 	_game.score_changed.connect(_hud.update_score)
-	_game.game_over.connect(_on_game_over)
-	_game.game_over.connect(_hud.show_fail_menu)
 	_game.generate()
 
 	_load_config()
 	_load_highscore()
-	_hud.show_menu()
+	MetaEvents.tile_colour_changed.connect(_update_tile_colour_config)
 
 
-func _start_game() -> void:
-	_game.play(true)
-
-
-func _update_tile_colour(colour: Color) -> void:
-	_game.tile_colour = colour
+func _update_tile_colour_config(colour: Color) -> void:
 	_config_file.set_value("Visuals", "tile_colour", colour)
 	_config_file.save(_CONFIG_FILE_PATH)
 
@@ -86,5 +74,4 @@ func _load_config() -> void:
 	var colour: Color = _config_file.get_value(
 		"Visuals", "tile_colour", Color.BLACK
 	)
-	_update_tile_colour(colour)
-	_hud.set_tile_colour(colour)
+	MetaEvents.tile_colour_changed.emit(colour)

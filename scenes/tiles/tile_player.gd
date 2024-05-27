@@ -2,7 +2,6 @@ class_name TilePlayer
 extends Node
 ## A gameplay manager class. Handles tile generation and parses gameplay inputs.
 
-signal game_over(final_score: int)
 signal score_changed(new_score: int)
 
 const _TILE_HEIGHT: int = 720 / 4
@@ -36,6 +35,10 @@ var _score: int = 0:
 func _ready() -> void:
 	# Begin in a paused state until play is called.
 	pause()
+	MetaEvents.game_started.connect(play.bind(true))
+	MetaEvents.tile_colour_changed.connect(
+		func(c: Color) -> void: tile_colour = c
+	)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -101,8 +104,9 @@ func _handle_tile_pressed(index: int) -> void:
 		_score += 1
 		_audio_player.play_stream(_success_sound)
 	else:
+		pause()
 		_audio_player.play_stream(_fail_sound)
-		game_over.emit(_score)
+		MetaEvents.game_over.emit(_score)
 
 
 func _shift() -> void:

@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctvns6xnlrd4l"]
+
+[ext_resource type="Script" path="res://scenes/hud/hud.gd" id="1_4caqb"]
+[ext_resource type="PackedScene" uid="uid://bl86vwnlw3q6v" path="res://scenes/hud/main_menu.tscn" id="2_ox68h"]
+
+[node name="HUD" type="MarginContainer" node_paths=PackedStringArray("_score_label", "_highscore_label", "_main_menu")]
+offset_right = 480.0
+offset_bottom = 720.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("1_4caqb")
+_score_label = NodePath("ScoreLabel")
+_highscore_label = NodePath("HighscoreLabel")
+_main_menu = NodePath("MainMenu")
+
+[node name="ScoreLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="HighscoreLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "Highscore: 0"
+
+[node name="MainMenu" parent="." instance=ExtResource("2_ox68h")]
+layout_mode = 2
