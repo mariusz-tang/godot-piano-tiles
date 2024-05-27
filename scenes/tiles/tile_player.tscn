@@ -6,7 +6,15 @@
 [ext_resource type="Script" path="res://scenes/tiles/sound_effect_player.gd" id="4_g7pno"]
 [ext_resource type="AudioStream" uid="uid://0vqilticpcqx" path="res://assets/NO.ogg" id="4_pxm40"]
 
-[node name="TilePlayer" type="Node" node_paths=PackedStringArray("_audio_player")]
+[node name="TilePlayer" type="Control" node_paths=PackedStringArray("_audio_player")]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 3
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_7r7by")
 _tile_scene = ExtResource("2_v3r57")
 _audio_player = NodePath("SoundEffectPlayer")
